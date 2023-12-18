@@ -147,15 +147,17 @@ class _ReorderableScrollingListenerState
 
       const variance = 5.0;
 
-      // scroll to top
-      if (dragPosition.dy <= minDy && _scrollPositionPixels > 0) {
-        _scrollPositionPixels -= variance;
-        _scrollTo(dy: _scrollPositionPixels);
-      } else if (dragPosition.dy >= maxDy &&
-          _scrollPositionPixels <
-              widget.scrollController!.position.maxScrollExtent) {
-        _scrollPositionPixels += variance;
-        _scrollTo(dy: _scrollPositionPixels);
+      if(widget.scrollController?.hasClients ?? false){
+        // scroll to top
+        if (dragPosition.dy <= minDy && _scrollPositionPixels > 0) {
+          _scrollPositionPixels -= variance;
+          _scrollTo(dy: _scrollPositionPixels);
+        } else if (dragPosition.dy >= maxDy &&
+            _scrollPositionPixels <
+                widget.scrollController!.position.maxScrollExtent) {
+          _scrollPositionPixels += variance;
+          _scrollTo(dy: _scrollPositionPixels);
+        }
       }
     }
   }
